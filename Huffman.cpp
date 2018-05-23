@@ -61,7 +61,7 @@ int main(void){
 	root=huffman_tree(p_queue);
 	int ans=0;
 	ans=cal(root,0);
-	printf("%d",ans);
+	printf("%d\n",ans);
 	//以下为B的决定模块(未完成)--需要使用双端优先队列 
 	char emotion[4];
 	scanf("%s",emotion);
@@ -72,7 +72,7 @@ int main(void){
 		for(int i=0;i<num_B;i++){
 			scanf("%s",&operation);
 			if(operation[0]=='D'){
-				
+				//删除最大元素（待补） 
 			}
 			else if(operation[0]=='E'){
 				b_queue.pop();
@@ -85,7 +85,10 @@ int main(void){
 				p.right=NULL;
 				b_queue.push(p);
 			}
-		}	
+		}
+		root=huffman_tree(b_queue);
+		ans=cal(root,0);
+		printf("%d\n",ans);	
 	}
 	return 0;
 } 
