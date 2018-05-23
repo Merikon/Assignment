@@ -4,65 +4,35 @@
 
 using namespace std;
 
-struct node{
-	int num;
-	node *left;
-	node *right;
-	friend bool operator < (node a,node b){
-		return a.num>b.num;
-	}
-};
-//构建huffman树 --使用优先队列 
-node huffman_tree(priority_queue<node> p_queue){
+int huffman_tree(priority_queue<int,vector<int>,greater<int> > p_queue,int sum){
 	if(p_queue.size()==1){
-		return p_queue.top();
+		return sum;
 	}
-	node *node_left;
-	node *node_right;
-	node_left=new node;
-	node_right=new node;
-	*node_left=p_queue.top();
+	int new_int=0;
+	sum+=p_queue.top();
+	new_int+=p_queue.top();
 	p_queue.pop();
-	*node_right=p_queue.top();
+	sum+=p_queue.top();
+	new_int+=p_queue.top();
 	p_queue.pop();
-	node *root_node;
-	root_node=new node;
-	root_node->num=node_left->num+node_right->num;
-	root_node->left=node_left;
-	root_node->right=node_right;
-	p_queue.push(*root_node);
-	return huffman_tree(p_queue);
-}
-//遍历huffman树求最终大小--与优先队列无关 
-int cal(node root,int depth){
-	if(root.left==NULL&&root.right==NULL){
-		return root.num*depth;
-	}
-	return cal(*root.left,depth+1)+cal(*root.right,depth+1);
+	p_queue.push(new_int);
+	return huffman_tree(p_queue,sum);
 }
 
 int main(void){
-	//以下为A的答案模块--仅需普通优先队列 
 	int num_A;
 	scanf("%d",&num_A);
 	int temp;
-	priority_queue<node>p_queue;
-	priority_queue<node>b_queue;
+	priority_queue<int,vector<int>,greater<int> > p_queue;
+	priority_queue<int,vector<int>,greater<int> > b_queue;
 	for(int i=0;i<num_A;i++){
 		scanf("%d",&temp);
-		node p;
-		p.num=temp;
-		p.left=NULL;
-		p.right=NULL;
-		p_queue.push(p);
-		b_queue.push(p);
+		p_queue.push(temp);
+		b_queue.push(temp);
 	}
-	node root;
-	root=huffman_tree(p_queue);
 	int ans=0;
-	ans=cal(root,0);
+	ans=huffman_tree(p_queue,0);
 	printf("%d\n",ans);
-	//以下为B的决定模块(未完成)--需要使用双端优先队列 
 	char emotion[4];
 	scanf("%s",emotion);
 	if(emotion[0]=='G'){
@@ -79,15 +49,10 @@ int main(void){
 			}
 			else if(operation[0]=='A'){
 				scanf("%d",&temp);
-				node p;
-				p.num=temp;
-				p.left=NULL;
-				p.right=NULL;
-				b_queue.push(p);
+				b_queue.push(temp);
 			}
 		}
-		root=huffman_tree(b_queue);
-		ans=cal(root,0);
+		ans=huffman_tree(b_queue,0);
 		printf("%d\n",ans);	
 	}
 	return 0;
