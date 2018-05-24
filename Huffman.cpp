@@ -2,6 +2,7 @@
 #include<stdio.h>
 #include<queue>
 
+
 using namespace std;
 
 long long huffman_tree(priority_queue<int,vector<int>,greater<int> > &p_queue){
@@ -23,6 +24,7 @@ int main(void){
 	scanf("%d",&num_A);
 	int temp;
 	priority_queue<int,vector<int>,greater<int> > p_queue;
+	//声明2个A型堆 
 	priority_queue<int,vector<int>,greater<int> > s_queue_a;
 	priority_queue<int> b_queue_a;
 	for(int i=0;i<num_A;i++){
@@ -33,17 +35,18 @@ int main(void){
 	}
 	long long ans;
 	ans=huffman_tree(p_queue);
-	printf("%lld\n",ans);
-	char emotion[4];
+	printf("%I64d\n",ans);
+	char emotion[10];
 	scanf("%s",emotion);
 	if(emotion[0]=='G'){
 		int num_B;
 		scanf("%d",&num_B);
-		char operation[3];
+		//声明2个B型堆 
 		priority_queue<int,vector<int>,greater<int> > s_queue_b;
 		priority_queue<int> b_queue_b;
 		for(int i=0;i<num_B;i++){
-			scanf("%s",&operation);
+			char operation[5];
+			scanf("%s",operation);
 			if(operation[0]=='D'){
 				if(!b_queue_b.empty()){
 					while(b_queue_a.top()==b_queue_b.top()){
@@ -70,6 +73,7 @@ int main(void){
 				s_queue_a.push(temp);
 			}
 		}
+		//求解小顶堆A-B 
 		priority_queue<int,vector<int>,greater<int> > ans_queue;
 		if(s_queue_b.empty()){
 			ans_queue=s_queue_a;
@@ -97,7 +101,7 @@ int main(void){
 			}
 		}
 		ans=huffman_tree(ans_queue);
-		printf("%lld\n",ans);	
+		printf("%I64d\n",ans);	
 	}
 	return 0;
 } 
