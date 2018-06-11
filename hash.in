@@ -1,0 +1,21 @@
+14 6
+root alice F
+root bob M
+alice cindy F
+alice daniel M
+bob ellis M
+alice frank M
+ellis george M
+daniel helen F
+daniel isaia M
+isaia john M
+john kevin M
+isaia lisa F
+george micheal M
+kevin nick M
+F root
+F cindy
+F alice
+S alice
+S ellis
+S nick
